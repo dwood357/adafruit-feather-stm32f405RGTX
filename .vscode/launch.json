@@ -1,0 +1,47 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+//
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "/Users/danwood/projects/Adafruit_Feather_STM32F405/.pio/build/adafruit_feather_f405/firmware.elf",
+            "projectEnvName": "adafruit_feather_f405",
+            "toolchainBinDir": "/Users/danwood/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/danwood/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            }
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "/Users/danwood/projects/Adafruit_Feather_STM32F405/.pio/build/adafruit_feather_f405/firmware.elf",
+            "projectEnvName": "adafruit_feather_f405",
+            "toolchainBinDir": "/Users/danwood/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/danwood/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (without uploading)",
+            "executable": "/Users/danwood/projects/Adafruit_Feather_STM32F405/.pio/build/adafruit_feather_f405/firmware.elf",
+            "projectEnvName": "adafruit_feather_f405",
+            "toolchainBinDir": "/Users/danwood/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/danwood/.platformio/platforms/ststm32/misc/svd/STM32F40x.svd",
+            "loadMode": "manual"
+        }
+    ]
+}
