@@ -25,6 +25,9 @@
 #include "cmsis_os.h"
 #include "stdio.h"
 #include "dac.h"
+#include "bep_host_if.h"
+#include "spi.h"
+
 // #include "can.h"
 //#include "gpio.h
 
@@ -41,8 +44,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define CAN_TASK_SIZE 1024
-#define DAC_TASK_SIZE 1024
+#define CAN_TASK_SIZE 100
+#define DAC_TASK_SIZE 100
+#define SPI_TASK_SIZE 100
 
 /* USER CODE END PD */
 
@@ -69,6 +73,10 @@ uint32_t  xCANStack[CAN_TASK_SIZE];
 
 StaticTask_t  xADCTaskBuffer;
 uint32_t  xADCStack[DAC_TASK_SIZE];
+
+StaticTask_t  xSPITaskBuffer;
+uint32_t  xSPIStack[SPI_TASK_SIZE];
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 
@@ -79,6 +87,7 @@ uint32_t  xADCStack[DAC_TASK_SIZE];
 
 void StartDefaultTask(void *argument);
 void StartDACTask(void *argument);
+void StartSPITask(void *argument);
 
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -117,6 +126,7 @@ void MX_FREERTOS_Init(void) {
 
   xTaskCreateStatic((TaskFunction_t)StartDACTask, "DACTask", DAC_TASK_SIZE, NULL, osPriorityHigh, xADCStack, &xADCTaskBuffer);
 
+  xTaskCreateStatic((TaskFunction_t)StartSPITask, "SpiTask", DAC_TASK_SIZE, NULL, osPriorityHigh, xSPIStack, &xSPITaskBuffer);
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -192,7 +202,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 //    HAL_CAN_RxFifo0MsgPendingCallback(&hcan1);
-	printf("Main task: %u \n", t);
+	  printf("Main task: %u \n", t);
 	// TxData[7] = t;
 	// HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
 //	printf("%c",RxHeader);
@@ -209,6 +219,13 @@ void StartDACTask(void *argument){
     osDelay(1000);
     HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, 100);
 	}
+}
+
+void StartSPITask(void *argument){
+  int state1 = HAL_SPI_GetState(&hspi1);
+  int state2 = HAL_SPI_GetState(&hspi2);
+  printf("%d , %d",state1, state2);
+
 }
 
 /* Private application code --------------------------------------------------*/
